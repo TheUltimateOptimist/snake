@@ -32,14 +32,17 @@ class MyHomePage extends StatefulWidget {
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage>{
+class _MyHomePageState extends State<MyHomePage> {
   final GameBoard _gameBoard = GameBoard();
   Timer? t;
 
   @override
   void initState() {
-    t = Timer.periodic(const Duration(milliseconds: 50,), (timer) {
-      if(mounted){
+    t = Timer.periodic(
+        const Duration(
+          milliseconds: 50,
+        ), (timer) {
+      if (mounted) {
         setState(() {
           _gameBoard.move();
         });
@@ -50,17 +53,19 @@ class _MyHomePageState extends State<MyHomePage>{
 
   @override
   Widget build(BuildContext context) {
-    return KeyboardListener(
+    return RawKeyboardListener(
       autofocus: true,
       focusNode: FocusNode(),
-      onKeyEvent: (keyEvent) {
-        print(keyEvent.logicalKey.keyLabel);
-        try{
-          _gameBoard.direction = DirectionFactory.fromKeyLabel(keyEvent.logicalKey.keyLabel);
-        }
-        catch(e){
+      onKey: (keyEvent) {
+        if (!keyEvent.isKeyPressed(keyEvent.logicalKey)) {
           return;
-        } 
+        }
+        try {
+          _gameBoard.direction =
+              DirectionFactory.fromKeyLabel(keyEvent.logicalKey.keyLabel);
+        } catch (e) {
+          return;
+        }
       },
       child: Scaffold(
         backgroundColor: Colors.white,
@@ -74,11 +79,13 @@ class _MyHomePageState extends State<MyHomePage>{
             width: _gameBoard.width.toDouble(),
             child: Stack(
               children: [
-                Positioned(left: _gameBoard.leftDistance.toDouble(), bottom: _gameBoard.bottomDistance.toDouble(),
+                Positioned(
+                  left: _gameBoard.leftDistance.toDouble(),
+                  bottom: _gameBoard.bottomDistance.toDouble(),
                   child: Container(
                     color: Colors.black,
-                    height: 10,
-                    width: 10,
+                    height: 30,
+                    width: 30,
                   ),
                 ),
               ],

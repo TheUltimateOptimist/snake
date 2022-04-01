@@ -36,7 +36,7 @@ class GameBoard {
   GameBoard({
     this.width = 200,
     this.height = 200,
-    this.velocity = 1,
+    this.velocity = 5,
     this.leftDistance = 100,
     this.bottomDistance = 100,
     this.direction = Direction.right,
