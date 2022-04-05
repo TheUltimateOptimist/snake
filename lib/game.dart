@@ -26,4 +26,8 @@ class Game{
     //TODO: implement getContainers
     throw UnimplementedError();
   }
+
+  void moveForward(Duration elapsed){
+    //TODO: implement moving forward
+  }
 }
