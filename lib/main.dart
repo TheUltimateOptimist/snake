@@ -1,7 +1,7 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:snake/game_board.dart';
+import 'package:flutter/scheduler.dart';
+
+import 'game.dart';
 
 void main() {
   runApp(const MyApp());
@@ -32,21 +32,21 @@ class MyHomePage extends StatefulWidget {
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  final GameBoard _gameBoard = GameBoard();
-  Timer? t;
+class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin{
+  Ticker? ticker;
+  late Game game;
 
-  @override
+
+@override
   void initState() {
-    t = Timer.periodic(
-        const Duration(
-          milliseconds: 50,
-        ), (timer) {
-      if (mounted) {
-        setState(() {
-          _gameBoard.move();
-        });
+    game = Game();
+    ticker = createTicker((elapsed) {
+      if(game.canMoveForward()){
+        game.moveForward(elapsed);
+        return;
       }
+      ticker?.stop();
+      //TODO: implement end of game logic
     });
     super.initState();
   }
@@ -61,8 +61,11 @@ class _MyHomePageState extends State<MyHomePage> {
           return;
         }
         try {
-          _gameBoard.direction =
-              DirectionFactory.fromKeyLabel(keyEvent.logicalKey.keyLabel);
+          if(!ticker!.isActive){
+            ticker!.start();
+            return;
+          }
+          game.changeDirection(keyEvent.logicalKey.keyLabel);
         } catch (e) {
           return;
         }
@@ -75,20 +78,10 @@ class _MyHomePageState extends State<MyHomePage> {
         body: Center(
           child: Container(
             color: Colors.green,
-            height: _gameBoard.height.toDouble(),
-            width: _gameBoard.width.toDouble(),
+            height: game.getBoardHeight().toDouble(),
+            width: game.getBoardWidth().toDouble(),
             child: Stack(
-              children: [
-                Positioned(
-                  left: _gameBoard.leftDistance.toDouble(),
-                  bottom: _gameBoard.bottomDistance.toDouble(),
-                  child: Container(
-                    color: Colors.black,
-                    height: 30,
-                    width: 30,
-                  ),
-                ),
-              ],
+              children: game.getContainers(),
             ),
           ),
         ),
