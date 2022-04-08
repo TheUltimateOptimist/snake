@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 abstract class SnakePath {
-  const SnakePath(this.start, this.end);
+   SnakePath(this.start, this.end);
 
   final Offset start;
 
-  final Offset end;
+  Offset end;
 
   double getLength();
 

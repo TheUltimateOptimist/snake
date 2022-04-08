@@ -6,7 +6,7 @@ import 'package:snake/direction_change.dart';
 import 'package:snake/snake_path.dart';
 
 class SnakeEdge extends SnakePath {
-  const SnakeEdge(Offset start, Offset end, this.directionChange)
+   SnakeEdge(Offset start, Offset end, this.directionChange)
       : super(start, end);
 
   final DirectionChange directionChange;

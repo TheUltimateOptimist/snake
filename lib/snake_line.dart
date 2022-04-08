@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:snake/snake_path.dart';
 
 class SnakeLine extends SnakePath{
-  const SnakeLine(Offset start, Offset end) : super(start, end);
+   SnakeLine(Offset start, Offset end) : super(start, end);
 
   @override
   double getLength() {
