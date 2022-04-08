@@ -16,6 +16,7 @@ class Snake {
     this.direction = Direction.right,
     this.velocity = 50,
     this.length = 30,
+    this.lengthIncrement = 10,
     this.color = Colors.white,
   });
 
@@ -28,6 +29,8 @@ class Snake {
   double velocity;  //in pixels per second
 
   double length;
+
+  double lengthIncrement;
 
   double _distanceTravelled = 0;
 
@@ -67,6 +70,10 @@ class Snake {
       subPaths.add(SnakeLine(newStartOffset, lastPath.start));
     }
     _distanceTravelled+=forwardDistance;
+  }
+
+  void eatFruit(){
+    length+=lengthIncrement;
   }
 
   double _getDistanceToMoveForward(Duration elapsed){
