@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 import 'package:snake/direction.dart';
+import 'package:snake/offset_extension.dart';
+import 'package:snake/snake_line.dart';
 import 'package:snake/snake_path.dart';
 
 
@@ -12,6 +14,7 @@ class Snake {
     this.subPaths,
     this.thickness, {
     this.direction = Direction.right,
+    this.velocity = 50,
     this.length = 30,
     this.color = Colors.white,
   });
@@ -22,7 +25,11 @@ class Snake {
 
   Direction direction;
 
+  double velocity;  //in pixels per second
+
   double length;
+
+  double _distanceTravelled = 0;
 
   Path toPath(){
     double remainingLength = length;
@@ -49,7 +56,20 @@ class Snake {
       ..strokeCap = StrokeCap.round;
   }
 
-  void moveForward() {
-    throw UnimplementedError();
+  void moveForward(Duration elapsed) {
+    final lastPath = subPaths.last;
+    final forwardDistance = _getDistanceToMoveForward(elapsed);
+    final newStartOffset = lastPath.start.moveForward(forwardDistance, direction);
+    if(lastPath is SnakeLine){
+      lastPath.start = newStartOffset;
+    }
+    else{
+      subPaths.add(SnakeLine(newStartOffset, lastPath.start));
+    }
+    _distanceTravelled+=forwardDistance;
+  }
+
+  double _getDistanceToMoveForward(Duration elapsed){
+    return (elapsed.inMilliseconds*velocity)/1000 - _distanceTravelled;
   }
 }
