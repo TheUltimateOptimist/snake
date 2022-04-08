@@ -6,11 +6,7 @@ class SnakeLine extends SnakePath{
   const SnakeLine(Offset start, Offset end) : super(start, end);
 
   @override
-  bool isLongerThan(double remainingLength) {
-    return _getLength() > remainingLength;
-  }
-
-  double _getLength(){
+  double getLength() {
     return (start.dx - end.dx).abs() + (start.dy - end.dy).abs();
   }
 

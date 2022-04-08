@@ -12,11 +12,7 @@ class SnakeEdge extends SnakePath {
   final DirectionChange directionChange;
 
   @override
-  bool isLongerThan(double remainingLength) {
-    return _getLength() > remainingLength;
-  }
-
-  double _getLength() {
+  double getLength() {
     return 2 * pi * _getVerticalDistance() / 4;
   }
 
@@ -59,7 +55,7 @@ class SnakeEdge extends SnakePath {
 
   @override
   Path toInCompletePath(double remainingLength) {
-    final sweepAngle = pi / 2 * (remainingLength / _getLength());
+    final sweepAngle = pi / 2 * (remainingLength / getLength());
     switch (directionChange) {
       case DirectionChange.rightUp:
         return _getPath(

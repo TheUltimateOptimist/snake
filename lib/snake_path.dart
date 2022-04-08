@@ -6,7 +6,7 @@ abstract class SnakePath {
 
   final Offset end;
 
-  bool isLongerThan(double remainingLength);
+  double getLength();
 
   Path toCompletePath();
 
