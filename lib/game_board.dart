@@ -4,20 +4,21 @@ class GameBoard {
   final int verticalSquares;
   final int horizontalSquares;
   final int sideLength;
-  final Offset snackPosition;
+  late final Offset snackPosition;
 
   GameBoard({
     this.verticalSquares = 15,
     this.horizontalSquares = 15,
     this.sideLength = 15,
-    required this.snackPosition
-  });
+  }) {
+    snackPosition = Offset(sideLength / 2, sideLength / 2);
+  }
 
-  int get width => horizontalSquares*sideLength;
+  int get width => horizontalSquares * sideLength;
 
-  int get height => verticalSquares*sideLength;
+  int get height => verticalSquares * sideLength;
 
-  void shuffleSnackPosition(){
+  void shuffleSnackPosition() {
     //TODO: implement shuffleSnackPosition
   }
 }
