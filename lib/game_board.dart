@@ -1,10 +1,10 @@
-import 'package:snake/position.dart';
+import 'package:flutter/cupertino.dart';
 
 class GameBoard {
   final int verticalSquares;
   final int horizontalSquares;
   final int sideLength;
-  final BoardPosition snackPosition;
+  final Offset snackPosition;
 
   GameBoard({
     this.verticalSquares = 15,
@@ -20,6 +20,4 @@ class GameBoard {
   void shuffleSnackPosition(){
     //TODO: implement shuffleSnackPosition
   }
-
-
 }
