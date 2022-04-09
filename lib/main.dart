@@ -39,7 +39,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin{
 
 @override
   void initState() {
-    game = Game();
+    game = Game.defaultOption();
     ticker = createTicker((elapsed) {
       if(game.canMoveForward()){
         game.moveForward(elapsed);
